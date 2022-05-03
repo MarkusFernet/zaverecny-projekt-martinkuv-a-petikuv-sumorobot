@@ -6,7 +6,7 @@ Planned:
 
 Working on:
 
-⌛
+⌛ Infra-červený senzor - 0%
 
 Done:
 
