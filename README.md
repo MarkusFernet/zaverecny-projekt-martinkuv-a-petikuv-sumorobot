@@ -6,8 +6,8 @@ Planned:
 
 Working on:
 
-⌛ Infra-červený senzor - 0%
+⌛ 
 
 Done:
 
-✔
+✔ Infra-červený senzor - Základní nastavení - 100%
