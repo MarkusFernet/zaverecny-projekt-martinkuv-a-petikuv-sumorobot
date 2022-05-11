@@ -6,7 +6,8 @@ Planned:
 
 Working on:
 
-⌛ 
+⌛ Ultrazvukový senzor - Základní nastavení - 15%
+                       - Nastavení TRIG - 100%
 
 Done:
 
