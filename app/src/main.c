@@ -1,40 +1,74 @@
 #include "stm8s.h"
-void tim4Init(void)
-{
-    TIM4_TimeBaseInit(TIM4_PRESCALER_64, 249);
-    TIM4_Cmd(ENABLE);
-}
+#include "uart.h"
+#include "ultrasonicSensor.h"
+#include "intToStrConvert.h"
+#include "delay.h"
 
-void tim4Reset(void)
-{
-    TIM4_SetCounter(0);
-}
+//float distance;
+int riseOrFall = 1;
+//uint16_t integer;
 
-void msDelay(uint32_t time_ms)
+INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
 {
-    
-    tim4Reset();
-    for(int ms = 0; ms < time_ms; ms++)
+    sendStr("a");
+    if (riseOrFall) // spusti se jen pri nastupni hrane
     {
-        while(TIM4_GetFlagStatus(TIM4_FLAG_UPDATE) != SET);
-        TIM4_ClearFlag(TIM4_FLAG_UPDATE);
+        tim3Reset();
+        riseOrFall = 0;
+        //GPIO_WriteHigh(GPIOC, GPIO_PIN_5);
     }
+    else if (!(riseOrFall)) // spusti se jen pri sestupni hrane
+    {
+        if (TIM3_GetFlagStatus(TIM3_FLAG_UPDATE) != SET) // citac nepretekl
+        {
+            sendDistanceToPutty(TIM3_GetCounter());
+            //float distance = tim3DistanceCalculation(TIM3_GetCounter());
+            //sendDistanceToPutty(distance);
+        }
+        else if (TIM3_GetFlagStatus(TIM3_FLAG_UPDATE) == SET) // cistac pretekl
+        {
+            sendStr("Vzdál\n\r");
+        }
+        riseOrFall = 1;
+        //GPIO_WriteLow(GPIOC, GPIO_PIN_5);
+    }
+    
 }
+
+//void sendTrig(void)
+//{
+//    GPIO_WriteHigh(GPIOD, GPIO_PIN_1);
+//    //GPIO_WriteHigh(GPIOC, GPIO_PIN_5);
+//    msDelay(10);
+//    GPIO_WriteLow(GPIOD, GPIO_PIN_1);
+//    //GPIO_WriteLow(GPIOC, GPIO_PIN_5);
+//    msDelay(10);
+//}
 
 void main(void)
 {
     CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1); // FREQ MCU 16MHz
     GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_SLOW);
-    GPIO_Init(GPIOD, GPIO_PIN_1, GPIO_MODE_OUT_PP_LOW_SLOW);
+    GPIO_Init(GPIOC, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_SLOW);
+    GPIO_Init(GPIOD, GPIO_PIN_6, GPIO_MODE_IN_FL_IT);
+    
+    uart1Init();
     tim4Init();
+    tim3Init();
+
+    // ultrasonic sensor interrupts 
+    EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_FALL); // interrupts settup for port E
+    ITC_SetSoftwarePriority(ITC_IRQ_PORTD, ITC_PRIORITYLEVEL_1);
+    enableInterrupts();
+    
     while (1)
     {
+        //sendTrig();
         msDelay(100);
-        GPIO_WriteHigh(GPIOC, GPIO_PIN_5);
         GPIO_WriteHigh(GPIOD, GPIO_PIN_1);
+        //GPIO_WriteHigh(GPIOC, GPIO_PIN_5);
         msDelay(100);
-        GPIO_WriteLow(GPIOC, GPIO_PIN_5);
         GPIO_WriteLow(GPIOD, GPIO_PIN_1);
+        //GPIO_WriteLow(GPIOC, GPIO_PIN_5);
     }
 }
-
