@@ -14,7 +14,7 @@ void tim3Reset(void)
 
 float tim3DistanceCalculation(uint16_t tim3Value)
 {
-    uint16_t echoTime = tim3Value/4; // in us (microseconds)
+    uint16_t echoTime = tim3Value / 4; // in us (microseconds)
     return ((echoTime*0.034)/2);
 }
 

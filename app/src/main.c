@@ -10,12 +10,11 @@ int riseOrFall = 1;
 
 INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
 {
-    sendStr("a");
     if (riseOrFall) // spusti se jen pri nastupni hrane
     {
         tim3Reset();
         riseOrFall = 0;
-        //GPIO_WriteHigh(GPIOC, GPIO_PIN_5);
+        GPIO_WriteHigh(GPIOC, GPIO_PIN_5);
     }
     else if (!(riseOrFall)) // spusti se jen pri sestupni hrane
     {
@@ -30,7 +29,7 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
             sendStr("Vzdál\n\r");
         }
         riseOrFall = 1;
-        //GPIO_WriteLow(GPIOC, GPIO_PIN_5);
+        GPIO_WriteLow(GPIOC, GPIO_PIN_5);
     }
     
 }
@@ -50,6 +49,8 @@ void main(void)
     CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1); // FREQ MCU 16MHz
     GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_SLOW);
     GPIO_Init(GPIOC, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_SLOW);
+    GPIO_Init(GPIOE, GPIO_PIN_1, GPIO_MODE_OUT_PP_LOW_SLOW);
+    GPIO_Init(GPIOE, GPIO_PIN_2, GPIO_MODE_OUT_PP_HIGH_SLOW);
     GPIO_Init(GPIOD, GPIO_PIN_6, GPIO_MODE_IN_FL_IT);
     
     uart1Init();
@@ -64,11 +65,12 @@ void main(void)
     while (1)
     {
         //sendTrig();
-        msDelay(100);
-        GPIO_WriteHigh(GPIOD, GPIO_PIN_1);
-        //GPIO_WriteHigh(GPIOC, GPIO_PIN_5);
-        msDelay(100);
-        GPIO_WriteLow(GPIOD, GPIO_PIN_1);
-        //GPIO_WriteLow(GPIOC, GPIO_PIN_5);
+        msDelay(200);
+        GPIO_WriteHigh(GPIOC, GPIO_PIN_4);
+        GPIO_WriteHigh(GPIOE, GPIO_PIN_2);
+        msDelay(10);
+        GPIO_WriteLow(GPIOC, GPIO_PIN_4);
+        GPIO_WriteLow(GPIOE, GPIO_PIN_2);
+        
     }
 }

@@ -1,5 +1,5 @@
-#ifndef ULTRASONICSENSOR_H
-#define ULTRASONICSENSOR_H
+#ifndef INC_ULTRASONICSENSOR_H
+#define INC_ULTRASONICSENSOR_H
 
 #include "stm8s.h"
 #include "uart.h"

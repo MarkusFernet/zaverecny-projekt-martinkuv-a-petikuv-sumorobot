@@ -1,5 +1,5 @@
-#ifndef UART_H
-#define UART_H
+#ifndef INC_UART_H
+#define INC_UART_H
 
 #include "stm8s.h"
 void uart1Init(void);

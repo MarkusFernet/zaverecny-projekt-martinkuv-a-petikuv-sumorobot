@@ -1,5 +1,5 @@
-#ifndef DELAY_H
-#define DELAY_H
+#ifndef INC_DELAY_H
+#define INC_DELAY_H
 
 #include "stm8s.h"
 void tim4Init(void);
