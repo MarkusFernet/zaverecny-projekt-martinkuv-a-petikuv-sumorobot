@@ -1,6 +1,9 @@
 {
-    "cSpell.enabled": false,
-    "files.exclude": {
-        "build/": true
-    }
+  "cSpell.enabled": false,
+  "files.exclude": {
+    "build/": true
+  },
+  "files.associations": {
+    "delay.h": "c"
+  }
 }
