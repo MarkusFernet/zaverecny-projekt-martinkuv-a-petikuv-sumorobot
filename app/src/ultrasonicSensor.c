@@ -12,6 +12,14 @@ void tim3Reset(void)
     TIM3_SetCounter(0);
 }
 
+void sendTrig(void)
+{
+    msDelay(100);
+    GPIO_WriteHigh(GPIOD, GPIO_PIN_5);
+    msDelay(10);
+    GPIO_WriteLow(GPIOD, GPIO_PIN_5);
+}
+
 float tim3DistanceCalculation(uint16_t tim3Value)
 {
     uint16_t echoTime = tim3Value / 4; // in us (microseconds)
