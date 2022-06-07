@@ -5,6 +5,7 @@
 #include "delay.h"
 
 int riseFall = 1;
+uint8_t distance;
 
 INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
 {
@@ -18,7 +19,21 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
     {
         if (TIM3_GetFlagStatus(TIM3_FLAG_UPDATE) != SET) // citac nepretekl
         {
-            sendDistanceToPutty(TIM3_GetCounter());
+            distance = sendDistanceToPutty(TIM3_GetCounter());
+            if (distance<10)
+            {
+                GPIO_WriteHigh(GPIOB, GPIO_PIN_5);
+                GPIO_WriteHigh(GPIOB, GPIO_PIN_3);
+                GPIO_WriteHigh(GPIOC, GPIO_PIN_5);
+            }
+            else
+            {
+                GPIO_WriteLow(GPIOB, GPIO_PIN_5);
+                GPIO_WriteLow(GPIOB, GPIO_PIN_3);
+                GPIO_WriteLow(GPIOC, GPIO_PIN_5);
+            }
+            
+            
         }
         else if (TIM3_GetFlagStatus(TIM3_FLAG_UPDATE) == SET) // cistac pretekl
         {
@@ -34,9 +49,13 @@ void main(void)
 {
     CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1); // FREQ MCU 16MHz
     GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_SLOW); // test-led
-    GPIO_Init(GPIOD, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_SLOW); // trig
-    GPIO_Init(GPIOD, GPIO_PIN_6, GPIO_MODE_IN_FL_IT); // echo
-    GPIO_Init(GPIOC, GPIO_PIN_1, GPIO_MODE_OUT_PP_HIGH_SLOW); // ucc
+    GPIO_Init(GPIOD, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_SLOW); // UZ-trig
+    GPIO_Init(GPIOD, GPIO_PIN_6, GPIO_MODE_IN_FL_IT); // UZ-echo
+    GPIO_Init(GPIOC, GPIO_PIN_1, GPIO_MODE_OUT_PP_HIGH_SLOW); // UZ-ucc
+    GPIO_Init(GPIOB, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_SLOW); // M1-1
+    GPIO_Init(GPIOB, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_SLOW); // M1-2
+    GPIO_Init(GPIOB, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_SLOW); // M2-1
+    GPIO_Init(GPIOB, GPIO_PIN_2, GPIO_MODE_OUT_PP_LOW_SLOW); // M2-2
     
     uart1Init();
     tim4Init();

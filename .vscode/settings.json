@@ -4,6 +4,7 @@
     "build/": true
   },
   "files.associations": {
-    "delay.h": "c"
+    "delay.h": "c",
+    "uart.h": "c"
   }
 }
