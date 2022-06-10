@@ -22,16 +22,22 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
             distance = sendDistanceToPutty(TIM3_GetCounter());
             if (distance<10)
             {
+                //vpred
                 GPIO_WriteHigh(GPIOB, GPIO_PIN_5); // M1-1
+                GPIO_WriteLow(GPIOB, GPIO_PIN_4); // M1-2
                 GPIO_WriteHigh(GPIOB, GPIO_PIN_3); // M2-1
                 GPIO_WriteLow(GPIOB, GPIO_PIN_2); // M2-2
+                //GPIO_WriteLow(GPIOB, GPIO_PIN_2); // M2-2
 
                 //GPIO_WriteHigh(GPIOC, GPIO_PIN_5);
             }
             else
             {
+                //stuj
                 GPIO_WriteLow(GPIOB, GPIO_PIN_5); // M1-1
+                GPIO_WriteLow(GPIOB, GPIO_PIN_4); // M1-2
                 GPIO_WriteLow(GPIOB, GPIO_PIN_3); // M2-1
+                GPIO_WriteLow(GPIOB, GPIO_PIN_2); // M2-2
 
                 //GPIO_WriteHigh(GPIOB, GPIO_PIN_5); // M1-1
                 //GPIO_WriteLow(GPIOB, GPIO_PIN_3); // M2-1
@@ -44,6 +50,7 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
         }
         else if (TIM3_GetFlagStatus(TIM3_FLAG_UPDATE) == SET) // cistac pretekl
         {
+            distance = 200;
             sendStr("Too far\n\r");
         }
         riseFall = 1;
@@ -54,23 +61,45 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
 
 INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 6)
 {
-    if (GPIO_ReadInputPin(GPIOC, GPIO_PIN_6)) // Infra-červený senzor nedetekuje
+    while (1)
     {
-       GPIO_WriteLow(GPIOC, GPIO_PIN_5);
-       //GPIO_WriteLow(GPIOB, GPIO_PIN_5); // M1-1
-       //GPIO_WriteLow(GPIOB, GPIO_PIN_4); // M1-2
-       //GPIO_WriteLow(GPIOB, GPIO_PIN_3); // M2-1
-       //GPIO_WriteLow(GPIOB, GPIO_PIN_2); // M2-2
-    }
+        if (GPIO_ReadInputPin(GPIOC, GPIO_PIN_6)) // Infra-červený senzor nedetekuje
+        {
+           GPIO_WriteLow(GPIOC, GPIO_PIN_5);
+           //GPIO_WriteLow(GPIOB, GPIO_PIN_5); // M1-1
+           //GPIO_WriteLow(GPIOB, GPIO_PIN_4); // M1-2
+           //GPIO_WriteLow(GPIOB, GPIO_PIN_3); // M2-1
+           //GPIO_WriteLow(GPIOB, GPIO_PIN_2); // M2-2
+        }
 
-    else if (!GPIO_ReadInputPin(GPIOC, GPIO_PIN_6))  // Infra-červený senzor detekuje bilou
-    {
-        GPIO_WriteHigh(GPIOC, GPIO_PIN_5);
-        GPIO_WriteLow(GPIOB, GPIO_PIN_5); // M1-1
-        GPIO_WriteLow(GPIOB, GPIO_PIN_4); // M1-2
-        GPIO_WriteLow(GPIOB, GPIO_PIN_3); // M2-1
-        GPIO_WriteLow(GPIOB, GPIO_PIN_2); // M2-2
-        msDelay(1000);
+        else if (!GPIO_ReadInputPin(GPIOC, GPIO_PIN_6))  // Infra-červený senzor detekuje bilou
+        {
+            GPIO_WriteHigh(GPIOC, GPIO_PIN_5);
+
+            //dozadu
+            GPIO_WriteLow(GPIOB, GPIO_PIN_5); // M1-1
+            GPIO_WriteHigh(GPIOB, GPIO_PIN_4); // M1-2
+            GPIO_WriteLow(GPIOB, GPIO_PIN_3); // M2-1
+            GPIO_WriteHigh(GPIOB, GPIO_PIN_2); // M2-2
+
+            msDelay(200);
+
+            //stuj
+            GPIO_WriteLow(GPIOB, GPIO_PIN_5); // M1-1
+            GPIO_WriteLow(GPIOB, GPIO_PIN_4); // M1-2
+            GPIO_WriteLow(GPIOB, GPIO_PIN_3); // M2-1
+            GPIO_WriteLow(GPIOB, GPIO_PIN_2); // M2-2
+
+            msDelay(1000);
+            
+            //vpred
+            GPIO_WriteHigh(GPIOB, GPIO_PIN_5); // M1-1
+            GPIO_WriteLow(GPIOB, GPIO_PIN_4); // M1-2
+            GPIO_WriteHigh(GPIOB, GPIO_PIN_3); // M2-1
+            GPIO_WriteLow(GPIOB, GPIO_PIN_2); // M2-2
+
+
+        }
     }    
 }
 
@@ -95,7 +124,7 @@ void main(void)
     EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_FALL); // interrupts settup for port D
     ITC_SetSoftwarePriority(ITC_IRQ_PORTD, ITC_PRIORITYLEVEL_0);
 
-    EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOC, EXTI_SENSITIVITY_RISE_ONLY); // interrupts settup for port C
+    EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOC, EXTI_SENSITIVITY_FALL_ONLY); // interrupts settup for port C
     ITC_SetSoftwarePriority(ITC_IRQ_PORTC, ITC_PRIORITYLEVEL_1);
     enableInterrupts();
     
