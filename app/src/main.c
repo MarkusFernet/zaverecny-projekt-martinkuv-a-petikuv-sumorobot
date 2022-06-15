@@ -61,8 +61,8 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
 
 INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 6)
 {
-    while (1)
-    {
+    //while (1)
+    //{
         if (GPIO_ReadInputPin(GPIOC, GPIO_PIN_6)) // Infra-červený senzor nedetekuje
         {
            GPIO_WriteLow(GPIOC, GPIO_PIN_5);
@@ -93,10 +93,54 @@ INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 6)
             msDelay(1000);
             
             //vpred
-            GPIO_WriteHigh(GPIOB, GPIO_PIN_5); // M1-1
+            //GPIO_WriteHigh(GPIOB, GPIO_PIN_5); // M1-1
+            //GPIO_WriteLow(GPIOB, GPIO_PIN_4); // M1-2
+            //GPIO_WriteHigh(GPIOB, GPIO_PIN_3); // M2-1
+            //GPIO_WriteLow(GPIOB, GPIO_PIN_2); // M2-2
+
+
+        }
+    //}    
+}
+
+INTERRUPT_HANDLER(EXTI_PORTE_IRQHandler, 4)
+{
+    while (1)
+    {
+        if (GPIO_ReadInputPin(GPIOE, GPIO_PIN_4)) // Infra-červený senzor nedetekuje
+        {
+           GPIO_WriteLow(GPIOC, GPIO_PIN_5);
+           //GPIO_WriteLow(GPIOB, GPIO_PIN_5); // M1-1
+           //GPIO_WriteLow(GPIOB, GPIO_PIN_4); // M1-2
+           //GPIO_WriteLow(GPIOB, GPIO_PIN_3); // M2-1
+           //GPIO_WriteLow(GPIOB, GPIO_PIN_2); // M2-2
+        }
+
+        else if (!GPIO_ReadInputPin(GPIOE, GPIO_PIN_4))  // Infra-červený senzor detekuje bilou
+        {
+            GPIO_WriteHigh(GPIOC, GPIO_PIN_5);
+
+            //dozadu
+            GPIO_WriteLow(GPIOB, GPIO_PIN_5); // M1-1
+            GPIO_WriteHigh(GPIOB, GPIO_PIN_4); // M1-2
+            GPIO_WriteLow(GPIOB, GPIO_PIN_3); // M2-1
+            GPIO_WriteHigh(GPIOB, GPIO_PIN_2); // M2-2
+
+            msDelay(200);
+
+            //stuj
+            GPIO_WriteLow(GPIOB, GPIO_PIN_5); // M1-1
             GPIO_WriteLow(GPIOB, GPIO_PIN_4); // M1-2
-            GPIO_WriteHigh(GPIOB, GPIO_PIN_3); // M2-1
+            GPIO_WriteLow(GPIOB, GPIO_PIN_3); // M2-1
             GPIO_WriteLow(GPIOB, GPIO_PIN_2); // M2-2
+
+            //msDelay(1000);
+            
+            //vpred
+            //GPIO_WriteHigh(GPIOB, GPIO_PIN_5); // M1-1
+            //GPIO_WriteLow(GPIOB, GPIO_PIN_4); // M1-2
+            //GPIO_WriteHigh(GPIOB, GPIO_PIN_3); // M2-1
+            //GPIO_WriteLow(GPIOB, GPIO_PIN_2); // M2-2
 
 
         }
@@ -114,7 +158,10 @@ void main(void)
     GPIO_Init(GPIOB, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_SLOW); // M1-2
     GPIO_Init(GPIOB, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_SLOW); // M2-1
     GPIO_Init(GPIOB, GPIO_PIN_2, GPIO_MODE_OUT_PP_LOW_SLOW); // M2-2
-    GPIO_Init(GPIOC, GPIO_PIN_6, GPIO_MODE_IN_FL_IT); // IR-D0
+    GPIO_Init(GPIOC, GPIO_PIN_6, GPIO_MODE_IN_FL_IT); // IR1-D0
+    GPIO_Init(GPIOB, GPIO_PIN_1, GPIO_MODE_OUT_PP_HIGH_SLOW); // IR1-ucc
+    GPIO_Init(GPIOE, GPIO_PIN_4, GPIO_MODE_IN_FL_IT); // IR1-D0
+    GPIO_Init(GPIOE, GPIO_PIN_0, GPIO_MODE_OUT_PP_HIGH_SLOW); // IR1-ucc
     
     uart1Init();
     tim4Init();
@@ -124,8 +171,11 @@ void main(void)
     EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_FALL); // interrupts settup for port D
     ITC_SetSoftwarePriority(ITC_IRQ_PORTD, ITC_PRIORITYLEVEL_0);
 
-    EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOC, EXTI_SENSITIVITY_FALL_ONLY); // interrupts settup for port C
+    EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOC, EXTI_SENSITIVITY_FALL_LOW); // interrupts settup for port C
     ITC_SetSoftwarePriority(ITC_IRQ_PORTC, ITC_PRIORITYLEVEL_1);
+
+    EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOE, EXTI_SENSITIVITY_FALL_ONLY); // interrupts settup for port E
+    ITC_SetSoftwarePriority(ITC_IRQ_PORTE, ITC_PRIORITYLEVEL_1);
     enableInterrupts();
     
     while (1)
