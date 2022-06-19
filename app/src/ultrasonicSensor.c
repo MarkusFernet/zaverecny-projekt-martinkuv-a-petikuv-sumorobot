@@ -26,10 +26,11 @@ float tim3DistanceCalculation(uint16_t tim3Value)
     return ((echoTime*0.034)/2);
 }
 
-void sendDistanceToPutty(uint16_t tim3Value)
+float sendDistanceToPutty(uint16_t tim3Value)
 {   
     float distance = tim3DistanceCalculation(tim3Value);
     uint16_t strD = distance;
     sendStr(intToStrConvert(strD)); 
     sendStr("\n\r");
+    return distance;
 }
