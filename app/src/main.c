@@ -4,6 +4,8 @@
 #include "intToStrConvert.h"
 #include "delay.h"
 
+// Kód není ve finální fázy. Finální funkční verze kódu bude nahrána v následujících dnech!!!
+
 int riseFall = 1;
 uint8_t distance;
 
@@ -20,7 +22,7 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
         if (TIM3_GetFlagStatus(TIM3_FLAG_UPDATE) != SET) // citac nepretekl
         {
             distance = sendDistanceToPutty(TIM3_GetCounter());
-            if (distance < 10)
+            if (distance < 10) // ATTACKING
             {
                 // vpred
                 GPIO_WriteHigh(GPIOB, GPIO_PIN_5); // M1-1
@@ -31,7 +33,7 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
 
                 // GPIO_WriteHigh(GPIOC, GPIO_PIN_5);
             }
-            else
+            else // SEARCHING_FOR_OPPONENT
             {
                 // stuj
                 GPIO_WriteLow(GPIOB, GPIO_PIN_5); // M1-1
@@ -173,6 +175,6 @@ void main(void)
 
     while (1)
     {
-        sendTrig();
+        sendTrig(); // DETECTING_OPPONENT
     }
 }
