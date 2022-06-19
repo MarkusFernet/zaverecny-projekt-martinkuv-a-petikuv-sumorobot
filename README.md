@@ -29,6 +29,7 @@ flowchart TD;
 # Vývojvý diagram
 
 # Schéma zapojení
+<img src="./img/schema.jpg" width=60% height=60%>
 
 # Tabulka použitých součástek
 V této tabulce nalezneme seznam použitých součástek.
