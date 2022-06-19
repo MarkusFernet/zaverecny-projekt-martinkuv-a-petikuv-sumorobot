@@ -2,18 +2,20 @@
 # Obsah
 - Obsah
 - Minisumo
-- Informace o součáskách
+- Vývojový diagram
+- Blokové schéma
+- Schéma zapojení
 - Tabulka použitých součástek
+- Informace o součáskách
 - Fotodokumentace
 - Videoukázka
-- Schéma zapojení
-- Blokové schéma
 - Závěr
 
 
 # Minisumo
 V ringu soutěží vždy jen dvojice robotů, kteří se položí za startovací čáry. Po startu se snaží vytlačit jeden druhého mimo ring. Pokud se jeden z robotů dotkne jakoukoli svou částí plochy mimo ring, prohrává.To platí i v případě, když z robota odpadne jakákoliv jeho část a ta následně bude vytlačena nebo sama se dotkne plochy mimo ring.  
 
+# Vývojvý diagram
 
 # Blokové schéma
 ```mermaid
@@ -26,9 +28,9 @@ flowchart TD;
     Ultrazvukový_senzor <--> STM-8
 
 ```
-# Vývojvý diagram
 
 # Schéma zapojení
+<img src="./img/schema.jpg" width=30% height=30%>
 
 # Tabulka použitých součástek
 V této tabulce nalezneme seznam použitých součástek.
@@ -47,8 +49,8 @@ V této tabulce nalezneme seznam použitých součástek.
 # Informace o součástkách
 
 ## STM-8
-STM8 Nucleo-64 je vývojová deska s STM8S208RB MCU. MikroKontroler je mozek celého robota. Napájení zdílí spoleně s H-můstkem.
-<img src="./img/STM8.webp" width=30% height=30%>
+STM8 Nucleo-64 je vývojová deska s STM8S208RB MCU. MikroKontroler je mozek celého robota. Napájení zdílí spoleně s H-můstkem.  
+<img src="./img/STM8.webp" width=50% height=50%>
 
 ## Infračervený senzor
 Robot disponuje 2 infračervenými senzory pro sledování čáry. Senzory kontrolují, zda se robot nachází v hracím poli a že z něj nevyjede.  
