@@ -114,6 +114,8 @@ Dalšími použitými součástkami jsou propojovací kebeli, které slouží k 
 
 # Videoukázka
 
+Zde naleznete krátká videa z testování při prvních zprovoznění [Infračerveného senzoru](https://www.youtube.com/shorts/qDU-vjNzq4A) a [ultrazvukového senzoru](https://www.youtube.com/watch?v=CRXJ4Qp8BMs)
+
 # Závěr
 
 Při tvorbě projetku jsme si prošli jak pozitivními, tak i negativními zkušenostmi. Nadosmrti si budeme pomatovat první pohyby našeho vytvoru, ze kterého se postupem času stal funkční sumorobot. Bohužel jseme se neobešli bez problémů. Hned ze začátku programovací fáze se objevil proplém, kde jsme nebyli schopni vyřešit funkci ultrazvukového senzoru. Po několika dnech zkoušení se ukázalo že problém není na naši straně a my byli nuceni senzor vymněnit, což nás o několik dní zdrželo. Každopádně jsme se naučili mnohé jak o součástkách se kterými by jsem se ve škole nesetkali, tak i programovacím jazyce C. Doufejme, že náš robot vyjde z arény jako výtěz.
