@@ -14,7 +14,7 @@
 
 # Minisumo
 
-V ringu soutěží vždy jen dvojice robotů, kteří se položí za startovací čáry. Po startu se snaží vytlačit jeden druhého mimo ring. Pokud se jeden z robotů dotkne jakoukoli svou částí plochy mimo ring, prohrává.To platí i v případě, když z robota odpadne jakákoliv jeho část a ta následně bude vytlačena nebo sama se dotkne plochy mimo ring.
+V ringu soutěží vždy jen dvojice robotů, kteří se položí za startovací čáry. Po startu se snaží vytlačit jeden druhého mimo ring. Pokud se jeden z robotů dotkne jakoukoli svou částí plochy mimo ring, prohrává. To platí i v případě, když z robota odpadne jakákoliv jeho část a ta následně bude vytlačena nebo sama se dotkne plochy mimo ring.
 
 # Blokové schéma
 
@@ -53,7 +53,7 @@ V této tabulce nalezneme seznam použitých součástek.
 |Ulzvuk. senzor |HC-SR04 |1x | 38 Kč|[HC-SR04 User Guide](https://www.laskakit.cz/user/related_files/hc-sr04_ultrasonic_module_user_guidejohn.pdf) |
 |Dc. motor |GA12-N20 |2x | 108 Kč|[G12-N20 Geared Mini DC Motor](https://www.handsontec.com/dataspecs/GA12-N20.pdf) |
 |H-můstek |L298N |1x | 58 Kč|[DUAL FULL-BRIDGE DRIVER](https://www.laskakit.cz/user/related_files/l298n.pdf) |
-|Držák baterii |BH-341-1A|1x | 34 Kč|[COMF BH-341-1A](https://www.laskakit.cz/comf-bh-341-1a-drzak-baterie-4xaa-dratove-vyvody/) |
+|Držák baterií |BH-341-1A|1x | 34 Kč|[COMF BH-341-1A](https://www.laskakit.cz/comf-bh-341-1a-drzak-baterie-4xaa-dratove-vyvody/) |
 |Kola |- |2x | 28 Kč|[Kolo gumové 43x19mm](https://www.laskakit.cz/kolo-gumene-43x19mm/) |
 |Stavebnice Merkur |- |- | - |[MerkurToys.cz](https://eshop.merkurtoys.cz/k4-stavebnice) |
 |Stahovací pásky |- |- | 90 Kč|[100-pack, Stahovací páska (2.5x200)](https://www.alza.cz/100-pack-stahovaci-paska-2-5x200-d1488352.htm) |
@@ -63,7 +63,7 @@ V této tabulce nalezneme seznam použitých součástek.
 
 ## STM-8
 
-STM8 Nucleo-64 je vývojová deska s STM8S208RB MCU. MikroKontroler je mozek celého robota. Napájení zdílí spoleně s H-můstkem.
+STM8 Nucleo-64 je vývojová deska s STM8S208RB MCU. MikroKontroler je mozek celého robota. Napájení sdílí spoleně s H-můstkem.
 <img src="./img/STM8.webp" width=30% height=30%>
 
 ## Infračervený senzor
@@ -73,37 +73,37 @@ Robot disponuje 2 infračervenými senzory pro sledování čáry. Senzory kontr
 
 ## Ultrazvukový senzor
 
-V přední časti robota se nachází ultrazvukový senzor, jehož prací je určit přítomnost nepřítele. Nachází-li se nepřítel před robotem, robot se rozjede a plnou parou do protívníka narazí avytlačí ho ven z hřiště.  
+V přední časti robota se nachází ultrazvukový senzor, jehož prací je určit přítomnost nepřítele. Nachází-li se nepřítel před robotem, robot se rozjede a plnou parou do protívníka narazí a vytlačí ho ven z hřiště.  
 <img src="./img/UZ.jpg" width=30% height=30%>
 
 ## DC Motor
 
-Stejnosměrné motory s převodovkou jsou jedinným pohonem sumorobota. Nenechte se ale s nimi zmást, i přes jejich velikost dokáží předat dostatečně velkou sílu, aby poháněli robota a zároveň protivníka vytlačili ven z hřoště.  
+Stejnosměrné motory s převodovkou jsou jedinným pohonem sumorobota. Nenechte se ale s nimi zmást, i přes jejich velikost dokáží předat dostatečně velkou sílu, aby poháněli robota a zároveň protivníka vytlačili ven z hřiště.  
 <img src="./img/DC-motor.jpg" width=30% height=30%>
 
 ## H-můstek
 
-Jedná se o ovládací prvek, který ovládá chod stejnosměrných motorů. Umožňuje motorům chod dopředu, dozadu ale i každý jiným směrem. H-můstek je napájen 4x 1.5V bateriemi.  
+Jedná se o ovládací prvek, který ovládá chod stejnosměrných motorů. Umožňuje motorům chod dopředu, dozadu, ale i každý jiným směrem. H-můstek je napájen 4 x 1.5V bateriemi.  
 <img src="./img/l298.jpg" width=30% height=30%>
 
 ## Držák baterií
 
-Nápájení obstarávají 4 AA baterie, které jsou usazeny do držáku baterii COMF BH-341-1A.  
+Nápájení obstarávají 4 AA baterie, které jsou usazeny do držáku baterií COMF BH-341-1A.  
 <img src="./img/bat.jpg" width=30% height=30%>
 
 ## Kola
 
-Dc motory jsou osazeny koly s gumovou pneumatikou o rozměrech 43x19mm. Kola byla navržena přímo pro hřídel motoru.  
+Dc motory jsou osazeny koly s gumovou pneumatikou o rozměrech 43 x 19 mm. Kola byla navržena přímo pro hřídel motoru.  
 <img src="./img/kolo.jpg" width=30% height=30%>
 
 ## Stavebnice Merkur
 
-Tělo robota je kompletně sestaveno ze stavebnice Merkur, se kterou si určitě každý znas alespoň jednou hrál.  
+Tělo robota je kompletně sestaveno ze stavebnice Merkur, se kterou si určitě každý z nás alespoň jednou hrál.  
 <img src="./img/merkur.jpg" width=30% height=30%>
 
 ## Ostatní součástky
 
-Dalšími použitými součástkami jsou propojovací kebeli, které slouží k propojení jednotlivách částí robota a stahovací pásky, které momáhají držet určité součástky na místě.  
+Dalšími použitými součástkami jsou propojovací kabely, které slouží k propojení jednotlivých částí robota, a stahovací pásky, které pomáhají držet určité součástky na místě.  
 <img src="./img/paska.jpg" width=30% height=30%> <img src="./img/kabel.jpg" width=30% height=30%>
 
 # Fotodokumentace
@@ -114,11 +114,11 @@ Dalšími použitými součástkami jsou propojovací kebeli, které slouží k 
 
 # Videoukázka
 
-Zde naleznete krátká videa z testování při prvních zprovoznění [Infračerveného senzoru](https://www.youtube.com/shorts/qDU-vjNzq4A) a [ultrazvukového senzoru](https://www.youtube.com/watch?v=CRXJ4Qp8BMs)
+Zde naleznete krátká videa z testování při prvních zprovoznění [infračerveného senzoru](https://www.youtube.com/shorts/qDU-vjNzq4A) a [ultrazvukového senzoru](https://www.youtube.com/watch?v=CRXJ4Qp8BMs).
 
 # Závěr
 
-Při tvorbě projetku jsme si prošli jak pozitivními, tak i negativními zkušenostmi. Nadosmrti si budeme pomatovat první pohyby našeho vytvoru, ze kterého se postupem času stal funkční sumorobot. Bohužel jseme se neobešli bez problémů. Hned ze začátku programovací fáze se objevil proplém, kde jsme nebyli schopni vyřešit funkci ultrazvukového senzoru. Po několika dnech zkoušení se ukázalo že problém není na naši straně a my byli nuceni senzor vymněnit, což nás o několik dní zdrželo. Každopádně jsme se naučili mnohé jak o součástkách se kterými by jsem se ve škole nesetkali, tak i programovacím jazyce C. Doufejme, že náš robot vyjde z arény jako výtěz.
+Při tvorbě projetku jsme si prošli jak pozitivními, tak i negativními zkušenostmi. Nadosmrti si budeme pamatovat první pohyby našeho výtvoru, ze kterého se postupem času stal funkční sumorobot. Bohužel jsme se neobešli bez problémů. Hned ze začátku programovací fáze se objevil problém, kdy jsme nebyli schopni vyřešit funkci ultrazvukového senzoru. Po několika dnech zkoušení se ukázalo, že problém není na naší straně a my byli nuceni senzor vyměnit, což nás o několik dní zdrželo. Každopádně jsme se naučili mnohé jak o součástkách, se kterými bychom se ve škole nesetkali, tak i programovacím jazyce C. Doufejme, že náš robot vyjde z arény jako vítěz.
 
 # Rozdělení Práce
 
@@ -128,11 +128,11 @@ Při tvorbě projetku jsme si prošli jak pozitivními, tak i negativními zkuš
 - Zajištění součástek
 - Zapojení robota
 - Sestavení
-- Dokumentace(Schéma zapojení, bokové chchéma, Seznam součástek, )
+- Dokumentace (schéma zapojení, blokové chchéma, seznam součástek)
 
-## Matin Bernát
+## Martin Bernát
 
 - Návrh programu
 - Zapojení robota
 - Tvorba programu
-- dokumentace (Návrh vývojového diagramu)
+- Dokumentace (návrh vývojového diagramu, natočení videí, pořízení fotek, oprava pravopisných chyb)
