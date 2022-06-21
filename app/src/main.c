@@ -178,3 +178,42 @@ void main(void)
         sendTrig(); // DETECTING_OPPONENT
     }
 }
+
+""
+    "
+#include "stm8s.h"
+
+    void
+    main(void)
+{
+    CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1); // FREQ MCU 16MHz
+    GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_SLOW);
+
+    // nastavime citac
+    TIM2_TimeBaseInit(
+        TIM2_PRESCALER_8,
+        39999);
+
+    // nastavime kanal pro generovani PWM
+    TIM2_OC2Init(
+        TIM2_OCMODE_PWM1,
+        TIM2_OUTPUTSTATE_ENABLE,
+        2000,
+        TIM2_OCPOLARITY_HIGH);
+
+    // spustime citat
+    TIM2_Cmd(ENABLE);
+    TIM2_OC2PreloadConfig(ENABLE);
+
+    while (1)
+    {
+        TIM2_SetCompare2(2000);
+        for (uint32_t i = 0; i < 1000000; i++)
+            ;
+        TIM2_SetCompare2(4000);
+        for (uint32_t i = 0; i < 1000000; i++)
+            ;
+    }
+}
+""
+    "
