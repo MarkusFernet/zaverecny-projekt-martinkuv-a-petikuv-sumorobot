@@ -17,5 +17,7 @@ void forward100(void);
 void backwards100(void);
 void stop(void);
 void forward25(void);
+void L100(void);
+void R100(void);
 
 #endif

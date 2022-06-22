@@ -22,13 +22,12 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
         if (TIM3_GetFlagStatus(TIM3_FLAG_UPDATE) != SET) // citac nepretekl
         {
             distance = sendDistanceToPutty(TIM3_GetCounter());
-            if (distance < 10) // ATTACKING
+            if (distance < 30) // ATTACKING
             {
                 forward100();
             }
             else // SEARCHING_FOR_OPPONENT
             {
-                forward25();
             }
         }
         else if (TIM3_GetFlagStatus(TIM3_FLAG_UPDATE) == SET) // cistac pretekl
@@ -52,6 +51,7 @@ INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 5) // IR-R
         msDelay(500);
         stop();
         msDelay(200);
+        R100();
     }
 }
 
@@ -67,6 +67,7 @@ INTERRUPT_HANDLER(EXTI_PORTE_IRQHandler, 7) // IR-L
         msDelay(500);
         stop();
         msDelay(200);
+        L100();
     }
 }
 
@@ -77,10 +78,10 @@ void main(void)
     GPIO_Init(GPIOD, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_SLOW);  // UZ-trig
     GPIO_Init(GPIOD, GPIO_PIN_6, GPIO_MODE_IN_FL_IT);         // UZ-echo
     GPIO_Init(GPIOC, GPIO_PIN_1, GPIO_MODE_OUT_PP_HIGH_SLOW); // UZ-ucc
-    GPIO_Init(GPIOD, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_SLOW);  // M1-1
-    GPIO_Init(GPIOB, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_SLOW);  // M1-2
-    GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_SLOW);  // M2-1
-    GPIO_Init(GPIOB, GPIO_PIN_2, GPIO_MODE_OUT_PP_LOW_SLOW);  // M2-2
+    GPIO_Init(GPIOD, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_SLOW);  // MR-1
+    GPIO_Init(GPIOB, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_SLOW);  // MR-2
+    GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_SLOW);  // ML-1
+    GPIO_Init(GPIOB, GPIO_PIN_2, GPIO_MODE_OUT_PP_LOW_SLOW);  // ML-2
     GPIO_Init(GPIOC, GPIO_PIN_6, GPIO_MODE_IN_FL_IT);         // IR1-D0
     GPIO_Init(GPIOB, GPIO_PIN_1, GPIO_MODE_OUT_PP_HIGH_SLOW); // IR1-ucc
     GPIO_Init(GPIOE, GPIO_PIN_4, GPIO_MODE_IN_FL_IT);         // IR2-D0
@@ -91,6 +92,8 @@ void main(void)
     tim3Init();
     tim2Init();
     PWMInit();
+
+    msDelay(5000);
 
     // ultrasonic sensor interrupts
     EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_FALL); // interrupts settup for port D
